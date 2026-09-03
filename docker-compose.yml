@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  it-team-skills:
+    build: .
+    container_name: it_team_skills_app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - BASE_NAME=it_team_skils.db
+    volumes:
+      # Mount SQLite database file for data persistence
+      - ./it_team_skils.db:/app/it_team_skils.db
+
