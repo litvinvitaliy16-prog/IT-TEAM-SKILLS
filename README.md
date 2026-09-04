@@ -21,17 +21,24 @@
 ## 🚀 Вариант А: Запуск через Docker (самый простой)
 
 1. Откройте терминал (PowerShell / CMD / Bash) в корневой папке проекта.
-2. Выполните команду сборки и запуска:
+2. Выполните сборку и запуск:
    ```bash
    docker compose up -d --build
    ```
-3. Готово! Сервис запущен:
+3. Готово! Всё работает в **одном контейнере** на порту `8080`:
+   * **Веб-интерфейс (сайт)**: [http://localhost:8080](http://localhost:8080) — автоматически открывается `frontend/index.html`
    * **Swagger Документация API**: [http://localhost:8080/docs](http://localhost:8080/docs)
-   * **Веб-интерфейс**: откройте файл `frontend/index.html` в браузере.
+
+   > Фронтенд раздаётся самим FastAPI из каталога `frontend/` (см. `backend/main.py`,
+   > монтирование `StaticFiles`). Отдельный nginx-контейнер и порт 3000 не нужны.
+
+4. Данные (SQLite) хранятся в **Docker volume** `it_team_skills_data`
+   и переживают пересоздание контейнера (в Git сама БД не попадает).
 
 #### Полезные команды Docker:
-* Остановить контейнер: `docker compose down`
-* Посмотреть логи бэкенда: `docker compose logs -f`
+* Остановить контейнер (данные сохранятся): `docker compose down`
+* Полностью сбросить контейнер и данные БД: `docker compose down -v`
+* Посмотреть логи: `docker compose logs -f backend`
 
 ---
 
@@ -47,8 +54,9 @@
    ```
    *(или перейдите в папку: `cd backend` и выполните `python main.py`)*
    *Сервер FastAPI запустится на порту `8080` (`http://localhost:8080`).*
-3. Откройте фронтенд:
-   * Дважды кликните по файлу `frontend/index.html` в проводнике и откройте его в браузере.
+3. Откройте сайт: [http://localhost:8080](http://localhost:8080) — FastAPI сам
+   раздаёт `frontend/index.html`. (Резервный вариант — открыть файл
+   `frontend/index.html` вручную в браузере: CORS уже настроен.)
 
 ---
 

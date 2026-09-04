@@ -1,3 +1,7 @@
 .env
-__pycache__
-it_team_skils.db
+__pycache__/
+*.py[cod]
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
