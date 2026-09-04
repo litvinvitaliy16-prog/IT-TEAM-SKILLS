@@ -10,7 +10,7 @@
 
 ### Вариант 1 (Рекомендуемый для всех): **Docker Desktop**
 * [Скачать Docker Desktop для Windows/Mac/Linux](https://www.docker.com/products/docker-desktop/)
-* Больше ничего устанавливать не нужно (ни Python, ни библиотеки — всё упаковано внутри).
+* Ничего больше устанавливать не нужно (Python и библиотеки упакованы внутри контейнера).
 
 ### Вариант 2 (Без Docker — локально на Python):
 * **Python 3.10+** (проверить: `python --version`)
@@ -20,14 +20,14 @@
 
 ## 🚀 Вариант А: Запуск через Docker (самый простой)
 
-1. Откройте терминал (PowerShell / CMD / Bash) в папке проекта.
+1. Откройте терминал (PowerShell / CMD / Bash) в корневой папке проекта.
 2. Выполните команду сборки и запуска:
    ```bash
    docker compose up -d --build
    ```
 3. Готово! Сервис запущен:
    * **Swagger Документация API**: [http://localhost:8080/docs](http://localhost:8080/docs)
-   * **Веб-интерфейс**: откройте файл `frontend/index.html` в браузере (или перейдите на [http://localhost:8080/](http://localhost:8080/), если подключен `StaticFiles`).
+   * **Веб-интерфейс**: откройте файл `frontend/index.html` в браузере.
 
 #### Полезные команды Docker:
 * Остановить контейнер: `docker compose down`
@@ -43,11 +43,12 @@
    ```
 2. Запустите бэкенд:
    ```bash
-   python main.py
+   python backend/main.py
    ```
+   *(или перейдите в папку: `cd backend` и выполните `python main.py`)*
    *Сервер FastAPI запустится на порту `8080` (`http://localhost:8080`).*
 3. Откройте фронтенд:
-   * Просто дважды кликните по файлу `frontend/index.html` в проводнике и откройте его в браузере.
+   * Дважды кликните по файлу `frontend/index.html` в проводнике и откройте его в браузере.
 
 ---
 
@@ -55,19 +56,23 @@
 
 ```text
 IT TEAM SKILLS/
-├── Dockerfile              # Рецепт сборки Docker-образа с Python 3.11
+├── Dockerfile              # Рецепт сборки Docker-образа с Python 3.12
 ├── docker-compose.yml      # Конфигурация запуска контейнера и проброса портов
 ├── requirements.txt        # Список зависимостей Python
-├── database.py             # Настройка асинхронного движка SQLAlchemy и сессий
-├── dependencies.py         # FastAPI зависимости для DI (сессия БД, валидация по ID)
-├── main.py                 # Точка входа FastAPI, Lifespan и CORS
-├── models.py               # SQLAlchemy модели Developers, Skills и ассоциативная таблица
-├── schemas.py              # Pydantic 2.0 схемы входных и выходных данных
-├── routers/
-│   ├── dev_router.py       # Эндпоинты управления разработчиками и связями M2M
-│   └── skils_router.py     # Эндпоинты управления навыками
+├── README.md               # Документация проекта
+├── .dockerignore           # Исключение временных файлов и локальной БД
 │
-└── frontend/               # Фронтенд-приложение (SPA в стиле Матрицы)
+├── backend/                # 🐍 Модули бэкенда (FastAPI)
+│   ├── database.py         # Настройка асинхронного движка SQLAlchemy и сессий
+│   ├── dependencies.py     # FastAPI зависимости для DI (сессия БД, валидация по ID)
+│   ├── main.py             # Точка входа FastAPI, Lifespan и CORS
+│   ├── models.py           # SQLAlchemy модели Developers, Skills и ассоциативная таблица
+│   ├── schemas.py          # Pydantic 2.0 схемы входных и выходных данных
+│   └── routers/
+│       ├── dev_router.py   # Эндпоинты управления разработчиками и связями M2M
+│       └── skills_router.py # Эндпоинты управления навыками
+│
+└── frontend/               # 🌐 Фронтенд-приложение (SPA в стиле Матрицы)
     ├── index.html          # Главная HTML-страница
     ├── css/
     │   └── matrix.css      # Неоновые стили, сканлайны, бейджи грэйдов
@@ -75,7 +80,7 @@ IT TEAM SKILLS/
         ├── api.js          # Клиент запросов к FastAPI
         ├── matrixRain.js   # Canvas-анимация падающих зеленых символов (Digital Rain)
         ├── matrixAvatar.js # Canvas-генератор и фотофильтр
-        ├── terminalAudio.js# Синтезатор звуков винтажной клавиатуры (Web Audio)
+        ├── terminalAudio.js# Синтезатор звуков механической клавиатуры (Web Audio)
         └── app.js          # React 18 SPA дашборд
 ```
 
@@ -92,4 +97,3 @@ IT TEAM SKILLS/
 * `POST /api/skills/create` — Создать новый скилл
 * `GET /api/skills/all` — Получить список всех скиллов
 * `DELETE /api/skills/{id}` — Удалить скилл
-

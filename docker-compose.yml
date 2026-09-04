@@ -8,8 +8,7 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - BASE_NAME=it_team_skils.db
+      - BASE_NAME=it_team_skills.db
     volumes:
       # Mount SQLite database file for data persistence
-      - ./it_team_skils.db:/app/it_team_skils.db
-
+      - ./backend/it_team_skills.db:/app/backend/it_team_skills.db

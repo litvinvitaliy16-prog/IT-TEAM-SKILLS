@@ -18,6 +18,6 @@ COPY . .
 # Expose FastAPI application port
 EXPOSE 8080
 
-# Command to run application via Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Command to run application via Uvicorn from backend directory
+CMD ["uvicorn", "main:app", "--app-dir", "backend", "--host", "0.0.0.0", "--port", "8080"]
 

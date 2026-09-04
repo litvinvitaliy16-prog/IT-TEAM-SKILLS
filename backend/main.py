@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from database import Base, engine
 from routers.dev_router import router as dev_router
-from routers.skils_router import router as skills_router
+from backend.routers.skills_router import router as skills_router
 import uvicorn
 
 @asynccontextmanager
